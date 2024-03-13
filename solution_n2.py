@@ -22,7 +22,6 @@ def parse_dna_str(sequence_dna_str: str) -> str:
     for letter in sequence_dna_str:
         if letter != "\n":
             new_sequence_dna_str += letter
-            continue
     return new_sequence_dna_str
 
 
@@ -44,17 +43,17 @@ def get_len_sequence(sequence_dna_str: str) -> tuple[int, float]:
 
 def get_len_subsequence(subsequence: str) -> int:
     """ Get the lenght of a DNA subsequence string """
-    len_subsequence = sum([1 for letter in subsequence])
-    return len_subsequence
+    return sum([1 for letter in subsequence])
 
 
-def get_num_nucleot(sequence_dna_str: str) -> tuple[dict, float]:
+def get_num_nucleot(sequence_dna_str: str,
+                    nucleotides: str) -> tuple[dict, float]:
     """ Get the count of nucleotide in a DNA sequence string
         and  the associated execution time """
     start_time = time.time()
     num_nucleot = {
         nuc: sum([1 for letter in sequence_dna_str if letter == nuc])
-        for nuc in "atcg"}
+        for nuc in nucleotides}
     end_time = time.time()
     execution_time = round((end_time - start_time)*1000, 3)
     return num_nucleot, execution_time
@@ -71,8 +70,8 @@ def get_num_subseq_dna(sequence_dna_str: str,
         [1 for i in range(len_sequence_dna - len_subsequence_dna + 1)
          if sequence_dna_str[i:i+len_subsequence_dna] == subsequence])
     end_time = time.time()
-    tiempo_ejecucion = round((end_time - start_time)*1000, 3)
-    return num_subsequence_in_dna, tiempo_ejecucion
+    execution_time = round((end_time - start_time)*1000, 3)
+    return num_subsequence_in_dna, execution_time
 
 
 def format_test_solution(info_len_sequence_dna: str, info_num_nucleotides: str,
@@ -91,12 +90,14 @@ def format_test_solution(info_len_sequence_dna: str, info_num_nucleotides: str,
     return test_solution
 
 
-def solution_sequence_dna(input_path: str, subsequence: str) -> str:
+def solution_sequence_dna(input_path: str, subsequence: str,
+                          nucleotides: str) -> str:
     """ Get the solution of the  statement No. 2 """
     sequence_dna_str = get_input_file(input_path)
     info_len_sequence_dna = get_len_sequence(sequence_dna_str)
     len_sequence_dna = info_len_sequence_dna[0]
-    info_num_nucleotides = get_num_nucleot(sequence_dna_str)
+    info_num_nucleotides = get_num_nucleot(sequence_dna_str,
+                                           nucleotides)
     info_num_subseq_dna = get_num_subseq_dna(sequence_dna_str,
                                              len_sequence_dna,
                                              subsequence)
@@ -107,9 +108,9 @@ def solution_sequence_dna(input_path: str, subsequence: str) -> str:
     return test_solution
 
 
-
 if __name__ == "__main__":
     input_path = "input_files/sequence_dna.txt"
     subsequence = "tgccag"
+    nucleotides = "atcg"
 
-    solution_sequence_dna(input_path, subsequence)
+    solution_sequence_dna(input_path, subsequence, nucleotides)
