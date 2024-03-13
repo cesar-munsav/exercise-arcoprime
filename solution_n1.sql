@@ -11,7 +11,7 @@
 -----Como no se indica la cantidad de decimales, se procede a redondear al primer decimal.
 -----Se asume que en la tabla "conyuges" el "id_persona_1" corresponde al Padre y el "id_persona_2" a la madre.
 
---Tabla auxiliar para obtener los distintos hijos por matrimonio
+--Se obtiene los distintos hijos por matrimonio
 WITH hijos_en_matrimonio AS (
   SELECT cys.id 
         ,cys.id_persona_1 AS padre
@@ -45,14 +45,14 @@ q_promedio_hijos_matrimonio AS (
 -----La base de datos maneja el uso de la función de ventana ROW_NUMBER() OVER() y la condición QUALIFY.
 -----Dado que no se especifica que sean personas vivas o muertas, se consideran ambos.
 
---Tabla Auxiliar para saber la cantidad de hijos que tiene cada padre
+--Cantidad de hijos que tiene cada padre
 padres_con_hijos AS (
   SELECT id_padre, count(*) AS q_hijos
   FROM hijos
   GROUP BY id_padre
 ),
 
---Tabla Auxiliar para saber la cantidad de nietos que tiene cada abuelo
+--Cantidad de nietos que tiene cada abuelo
 abuelos_con_nietos AS (
   SELECT hjs.id_padre, COUNT(*) AS q_nietos
   FROM hijos AS hjs
