@@ -74,8 +74,9 @@ def get_num_subseq_dna(sequence_dna_str: str,
     return num_subsequence_in_dna, execution_time
 
 
-def format_test_solution(info_len_sequence_dna: str, info_num_nucleotides: str,
-                         info_num_subseq_dna: str) -> dict:
+def format_test_solution(info_len_sequence_dna: tuple,
+                         info_num_nucleotides: tuple,
+                         info_num_subseq_dna: tuple) -> dict:
     """ Compilation of the answers in a dictionary """
     test_solution = {"Q2.1": {"Largo_secuencia": info_len_sequence_dna[0],
                               "Tiempo_ejecucion(ms)": info_len_sequence_dna[1]
