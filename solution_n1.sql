@@ -23,7 +23,7 @@ WITH hijos_en_matrimonio AS (
   FROM conyuges AS cys
   INNER JOIN hijos AS hjs ON hjs.id_padre=cys.id_persona_1
   INNER JOIN personas AS prs_1 ON prs_1.id=hjs.id_hijo AND prs_1.nacimiento>=cys.celebracion
-  INNER JOIN personas AS prs_2 ON prs_2.defuncion>=prs_1.nacimiento
+  INNER JOIN personas AS prs_2 ON prs_2.id=cys.id_persona_2 AND prs_2.defuncion>=prs_1.nacimiento
   QUALIFY rn_celebracion=1
 ),
 
